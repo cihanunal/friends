@@ -472,6 +472,10 @@ textarea:focus-visible {
   align-items: start;
 }
 
+.translation-box.is-hidden {
+  display: none;
+}
+
 .translation-box span {
   display: inline-grid;
   width: 34px;
@@ -503,6 +507,10 @@ textarea:focus-visible {
 .translation-editor {
   display: grid;
   gap: 8px;
+}
+
+.translation-editor[hidden] {
+  display: none !important;
 }
 
 .translation-editor textarea {
