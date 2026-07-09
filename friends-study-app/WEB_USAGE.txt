@@ -1,0 +1,22 @@
+Friends English Arena - Web / Phone Duel
+
+Current running URLs:
+- Computer: http://localhost:8787/
+- Phones on the same Wi-Fi: http://192.168.1.101:8787/
+
+How to use phone duel:
+1. Open the phone URL on both phones.
+2. Each person enters only their name.
+3. Open Duello.
+4. One person taps "Oda kur".
+5. The other person types the room code and taps "Katil".
+6. Both phones will see the same question and live scores.
+
+How to start it later:
+- Double-click start-web-server.cmd
+- Keep the command window open while using the phone version.
+
+Notes:
+- The regular index.html still works as a local single-device app.
+- Phone duel needs server.js because two phones must share room, question, answer, and score state.
+- If phones cannot open the URL, make sure both phones and this computer are on the same Wi-Fi and Windows Firewall allows local Node.js connections.

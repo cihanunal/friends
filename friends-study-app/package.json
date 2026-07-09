@@ -1,0 +1,14 @@
+{
+  "name": "friends-english-arena",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PWA language study app with live room duel API.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check app.js && node --check server.js && node --check sw.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

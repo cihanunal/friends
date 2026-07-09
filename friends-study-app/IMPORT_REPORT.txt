@@ -1,0 +1,20 @@
+Friends English Arena - Import Report
+
+Imported:
+- 88 readable PDF episodes
+- 24,967 OCR-aligned subtitle/translation lines
+- Seasons present in source PDFs: 1, 2, 3, 10
+
+Skipped:
+- S02E21 Zorbalar - source PDF is 0 bytes / empty
+
+Source folders checked:
+- 1.Sezon: 24 PDFs
+- 2.Sezon: 24 PDFs, 1 empty skipped
+- 3.sezon: 24 PDFs
+- 10.sezon: 17 PDFs
+- 4.sezon, 5.sezon, 6.sezon, 7.sezon, 8.sezon, 9.sezon: 0 PDFs
+
+Notes:
+- OCR quality is strong for the English and Turkish columns, but occasional OCR typos can remain because the source PDFs are image-based rather than selectable text.
+- The app reads data/friends-data.js directly, so index.html can be opened as a local file.

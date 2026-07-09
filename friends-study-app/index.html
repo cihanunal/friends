@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Friends English Arena</title>
+    <meta name="theme-color" content="#087f7a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="FE Arena" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icon-192.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="profileGate" class="profile-gate" aria-live="polite">
+      <form id="profileForm" class="profile-card">
+        <div class="brand compact">
+          <div class="brand-mark">FE</div>
+          <div>
+            <h1>Friends English Arena</h1>
+            <p id="gateSummary">Yukleniyor</p>
+          </div>
+        </div>
+        <label>
+          <span>Isim</span>
+          <input id="profileNameInput" type="text" maxlength="24" autocomplete="name" />
+        </label>
+        <button class="primary-action" type="submit">Devam et</button>
+        <div id="savedProfiles" class="saved-profiles"></div>
+      </form>
+    </div>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Bolumler">
+        <div class="brand">
+          <div class="brand-mark">FE</div>
+          <div>
+            <h1>Friends English Arena</h1>
+            <p id="dataSummary">Yukleniyor</p>
+          </div>
+        </div>
+
+        <section class="profile-strip" aria-label="Kullanici">
+          <div>
+            <span>Profil</span>
+            <strong id="activeProfileName">Misafir</strong>
+          </div>
+          <button id="switchProfile" type="button">Degistir</button>
+        </section>
+
+        <label class="select-box">
+          <span>Sezon</span>
+          <select id="seasonSelect"></select>
+        </label>
+
+        <label class="search-box">
+          <span>Ara</span>
+          <input id="episodeSearch" type="search" placeholder="Bolum ya da baslik" autocomplete="off" />
+        </label>
+
+        <div id="episodeList" class="episode-list"></div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="cover" aria-hidden="true">
+            <img src="assets/study-table.png" alt="" />
+          </div>
+          <div class="episode-head">
+            <div class="eyebrow" id="episodeKicker">Sezon</div>
+            <h2 id="episodeTitle">Bolum sec</h2>
+            <div class="episode-meta">
+              <span id="lineMeta">0 replik</span>
+              <span id="episodeProgressText">0%</span>
+              <span id="xpText">0 XP</span>
+            </div>
+            <div class="episode-tools">
+              <button id="resetEpisode" type="button">Bolumu bastan calis</button>
+              <button id="reviewEpisode" type="button">Bolumu tekrara al</button>
+            </div>
+            <div class="progress-track" aria-label="Bolum ilerlemesi">
+              <div id="episodeProgressBar" class="progress-bar"></div>
+            </div>
+          </div>
+        </header>
+
+        <nav class="mode-tabs" aria-label="Calisma modu">
+          <button class="mode-tab is-active" data-mode="study" type="button">Calis</button>
+          <button class="mode-tab" data-mode="review" type="button">Tekrar</button>
+          <button class="mode-tab" data-mode="quiz" type="button">Quiz</button>
+          <button class="mode-tab" data-mode="duel" type="button">Duello</button>
+          <button class="mode-tab" data-mode="vocab" type="button">Defter</button>
+        </nav>
+
+        <section id="studyView" class="view is-active" aria-label="Calisma">
+          <div class="study-panel">
+            <div class="line-toolbar">
+              <button id="prevLine" class="icon-button" type="button" title="Onceki">&lsaquo;</button>
+              <div class="line-counter" id="lineCounter">0 / 0</div>
+              <button id="nextLine" class="icon-button" type="button" title="Sonraki">&rsaquo;</button>
+            </div>
+
+            <article class="line-card">
+              <div class="time-chip" id="lineTime">00:00</div>
+              <p id="englishLine" class="english-line"></p>
+              <div id="translationBox" class="translation-box is-hidden">
+                <span>TR</span>
+                <p id="turkishLine"></p>
+              </div>
+              <div id="translationEditor" class="translation-editor" hidden>
+                <textarea id="translationInput" rows="3"></textarea>
+                <div class="editor-actions">
+                  <button id="saveTranslation" class="primary-action" type="button">Kaydet</button>
+                  <button id="cancelTranslation" type="button">Vazgec</button>
+                  <button id="restoreTranslation" type="button">Orijinale don</button>
+                </div>
+              </div>
+            </article>
+
+            <div class="action-row">
+              <button id="revealTranslation" class="primary-action" type="button">Ceviriyi ac</button>
+              <button id="editTranslation" type="button">Ceviriyi duzelt</button>
+              <button id="markHard" type="button">Zor</button>
+              <button id="markReview" type="button">Tekrar</button>
+              <button id="markKnown" type="button">Biliyorum</button>
+              <button id="saveVocab" type="button">Deftere ekle</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="reviewView" class="view" aria-label="Tekrar">
+          <div class="review-panel">
+            <div class="quiz-head">
+              <div>
+                <div class="eyebrow">Tekrar</div>
+                <h3 id="reviewCount">0 replik</h3>
+              </div>
+              <button id="startReview" type="button">Tekrar sorusu getir</button>
+            </div>
+            <article class="line-card compact-card">
+              <div class="time-chip" id="reviewTime">00:00</div>
+              <p id="reviewEnglish" class="english-line"></p>
+              <div class="translation-box">
+                <span>TR</span>
+                <p id="reviewTurkish"></p>
+              </div>
+            </article>
+            <div class="action-row review-actions">
+              <button id="reviewKnown" class="primary-action" type="button">Artik biliyorum</button>
+              <button id="reviewAgain" type="button">Tekrar kalsin</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="quizView" class="view" aria-label="Quiz">
+          <div class="quiz-panel">
+            <div class="quiz-head">
+              <div>
+                <div class="eyebrow">Anlam Esleme</div>
+                <h3 id="quizTime">Quiz</h3>
+              </div>
+              <button id="newQuiz" type="button">Yeni soru</button>
+            </div>
+            <p id="quizPrompt" class="quiz-prompt"></p>
+            <div id="quizOptions" class="option-grid"></div>
+            <div id="quizFeedback" class="feedback" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="duelView" class="view" aria-label="Duello">
+          <div class="duel-panel">
+            <div class="duel-room">
+              <label>
+                <span>Oda</span>
+                <input id="roomCodeInput" type="text" maxlength="8" placeholder="Kod" />
+              </label>
+              <button id="createRoom" type="button">Oda kur</button>
+              <button id="joinRoom" type="button">Katil</button>
+              <button id="leaveRoom" type="button">Cik</button>
+              <strong id="roomStatus">Yerel</strong>
+            </div>
+
+            <div id="duelScores" class="duel-scores"></div>
+
+            <article class="duel-question">
+              <div class="time-chip" id="duelTime">00:00</div>
+              <p id="duelPrompt"></p>
+            </article>
+
+            <div id="duelOptions" class="option-grid"></div>
+            <div class="duel-actions">
+              <button id="nextDuel" class="primary-action" type="button">Yeni tur</button>
+            </div>
+            <div id="duelFeedback" class="feedback" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <section id="vocabView" class="view" aria-label="Defter">
+          <div class="vocab-panel">
+            <div class="vocab-head">
+              <div>
+                <div class="eyebrow">Kisisel Defter</div>
+                <h3 id="vocabCount">0 kayit</h3>
+              </div>
+              <button id="clearVocab" type="button">Temizle</button>
+            </div>
+            <div id="vocabList" class="vocab-list"></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="stats-pane" aria-label="Istatistikler">
+        <div class="stat-band">
+          <span>Bugun</span>
+          <strong id="todayXp">0 XP</strong>
+        </div>
+        <div class="stat-band">
+          <span>Bilinen</span>
+          <strong id="knownCount">0</strong>
+        </div>
+        <div class="stat-band">
+          <span>Tekrar</span>
+          <strong id="reviewStatCount">0</strong>
+        </div>
+        <div class="leaderboard">
+          <h2>Duello</h2>
+          <div id="leaderRows"></div>
+        </div>
+      </aside>
+    </div>
+
+    <script src="data-config.js"></script>
+    <script src="data/friends-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
