@@ -428,19 +428,22 @@
     const line = currentStudyLine();
     const lines = getStudyLines();
     const index = line ? Math.max(0, lines.findIndex((item) => item.Id === line.Id)) : -1;
+    if (!profile.revealed) profile.editingTranslation = false;
+    const canShowTranslation = Boolean(line && profile.revealed);
+    const isEditingTranslation = Boolean(canShowTranslation && profile.editingTranslation);
 
     nodes.lineCounter.textContent = line ? `${index + 1} / ${lines.length}` : "Yeni replik yok";
     nodes.lineTime.textContent = line?.Time || "";
     nodes.englishLine.textContent = line?.English || "Bu bolumde calisilacak yeni replik kalmadi.";
     nodes.turkishLine.textContent = line ? getTranslation(line) : "";
-    nodes.translationBox.classList.toggle("is-hidden", !profile.revealed);
-    nodes.translationEditor.hidden = !profile.editingTranslation || !line;
-    nodes.translationInput.value = line ? getTranslation(line) : "";
+    nodes.translationBox.classList.toggle("is-hidden", !canShowTranslation);
+    nodes.translationEditor.hidden = !isEditingTranslation;
+    nodes.translationInput.value = isEditingTranslation && line ? getTranslation(line) : "";
     nodes.revealTranslation.textContent = profile.revealed ? "Ceviriyi kapat" : "Ceviriyi ac";
     nodes.prevLine.disabled = !line || index <= 0;
     nodes.nextLine.disabled = !line || index >= lines.length - 1;
-    nodes.editTranslation.hidden = !profile.revealed || !line;
-    nodes.editTranslation.disabled = !profile.revealed || !line;
+    nodes.editTranslation.hidden = !canShowTranslation;
+    nodes.editTranslation.disabled = !canShowTranslation;
     nodes.markHard.disabled = !line;
     nodes.markReview.disabled = !line;
     nodes.markKnown.disabled = !line;
